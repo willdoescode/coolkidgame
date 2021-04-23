@@ -2,22 +2,11 @@
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
 
+#include "callbacks.h"
+
 #include <cstdio>
 #include <iostream>
 
-static void error_callback(int error, const char* description) {
-  fprintf(stderr, "Error: %s\n", description);
-}
-
-static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
-  if (action == GLFW_PRESS) {
-    std::cout << (char) key;
-    fflush(stdout);
-  }
-
-  if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-    glfwSetWindowShouldClose(window, GLFW_TRUE);
-}
 
 int main() {
   GLFWwindow* window;
@@ -27,7 +16,17 @@ int main() {
   if (!glfwInit())
     exit(EXIT_FAILURE);
 
-  window = glfwCreateWindow(640, 480, "Simple example", nullptr, nullptr);
+  GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+  const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+
+  glfwWindowHint(GLFW_RED_BITS, mode->redBits);
+  glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
+  glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
+  glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
+
+  window = glfwCreateWindow(mode->width, mode->height, "Coolkidgame", monitor, nullptr);
+  glfwSetWindowCloseCallback(window, close_callback);
+
   if (!window) {
     glfwTerminate();
     exit(EXIT_FAILURE);

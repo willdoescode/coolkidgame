@@ -14,6 +14,8 @@ _deps
 ### C++ template
 # Prerequisites
 *.d
+coolkidgame
+coolkidgame.cbp
 
 # Compiled Object files
 *.slo
