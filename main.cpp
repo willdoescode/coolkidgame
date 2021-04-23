@@ -9,8 +9,7 @@ static void error_callback(int error, const char* description) {
   fprintf(stderr, "Error: %s\n", description);
 }
 
-static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
-{
+static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
   if (action == GLFW_PRESS) {
     std::cout << (char) key;
     fflush(stdout);
@@ -20,8 +19,7 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
     glfwSetWindowShouldClose(window, GLFW_TRUE);
 }
 
-int main()
-{
+int main() {
   GLFWwindow* window;
 
   glfwSetErrorCallback(error_callback);
@@ -29,12 +27,8 @@ int main()
   if (!glfwInit())
     exit(EXIT_FAILURE);
 
-  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
-  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
-
   window = glfwCreateWindow(640, 480, "Simple example", nullptr, nullptr);
-  if (!window)
-  {
+  if (!window) {
     glfwTerminate();
     exit(EXIT_FAILURE);
   }
@@ -46,8 +40,7 @@ int main()
   glfwSwapInterval(1);
 
 
-  while (!glfwWindowShouldClose(window))
-  {
+  while (!glfwWindowShouldClose(window)) {
     glClear(GL_COLOR_BUFFER_BIT);
 
     glfwSwapBuffers(window);
